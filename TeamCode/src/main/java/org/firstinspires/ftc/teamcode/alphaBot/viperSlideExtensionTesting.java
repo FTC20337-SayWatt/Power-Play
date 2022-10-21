@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "AlphaBotTeleOp")
-public class AlphaBotTeleOp extends LinearOpMode {
+@TeleOp(name = "ViperSlideExtensionTesting")
+public class viperSlideExtensionTesting extends LinearOpMode {
 
 
     private DcMotor viperSlide;
@@ -51,7 +51,7 @@ public class AlphaBotTeleOp extends LinearOpMode {
         viperSlide.setPower(speed);
 
 
-        while (opModeIsActive()) {
+        while (opModeIsActive() && viperSlide.isBusy()) {
             double SpeedOfRobot = 0.1;
             double SpeedOfArm = 0.8;
             if (gamepad2.a) {
