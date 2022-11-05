@@ -9,74 +9,97 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "AlphaBotTeleOp")
 public class AlphaBotTeleOp extends LinearOpMode {
-
-
+    private DcMotor frontRight;
+    private DcMotor frontLeft;
+    private DcMotor backRight;
+    private DcMotor backLeft;
     private DcMotor viperSlide;
-
-    private int slidePos1;
-    private int slidePos2;
-    private int slidePos3;
-
+    private Servo grabberRight;
+    private Servo grabberLeft;
 
     @Override
     public void runOpMode() {
+        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        viperSlide = hardwareMap.get(DcMotor.class, "viperSlide");
+        grabberRight = hardwareMap.get(Servo.class, "grabberRight");
+        grabberLeft = hardwareMap.get(Servo.class, "grabberLeft");
 
-        viperSlide = hardwareMap.get(DcMotor.class, "armMotor");
 
-        slidePos1 = 0;
-        slidePos2 = 0;
-        slidePos3 = 0;
+        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
-    }
+        grabberRight.setDirection(Servo.Direction.REVERSE);
+        grabberLeft.setPosition(0);
+        grabberRight.setPosition(0);
+        if (opModeIsActive()) {
+            while (opModeIsActive()) {
+                if (gamepad1.a) {
+                    grabberLeft.setPosition(0.2);
+                    grabberRight.setPosition(0.2);
+                }
+                if (gamepad1.b) {
+                    grabberLeft.setPosition(0);
+                    grabberRight.setPosition(0);
+                }
 
-    private void extendLevel3(int target3, double speed) {
-        slidePos3 += target3;
-        viperSlide.setTargetPosition(slidePos3);
-        viperSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        viperSlide.setPower(speed);
-    }
+                if (gamepad2.dpad_up) {
+                    viperSlide.setPower(1);
+                } else {
+                    viperSlide.setPower(0);
+                }
+                if (gamepad2.dpad_down) {
+                    viperSlide.setPower(-1);
+                } else {
+                    viperSlide.setPower(0);
+                }
 
-    private void extendLevel2(int target2, double speed) {
-        slidePos2 += target2;
-        viperSlide.setTargetPosition(slidePos2);
-        viperSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        viperSlide.setPower(speed);
-    }
-
-    private void extendLevel1(int target1, double speed) {
-        slidePos1 += target1;
-        viperSlide.setTargetPosition(slidePos1);
-        viperSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        viperSlide.setPower(speed);
-
-
-        while (opModeIsActive()) {
-            double SpeedOfRobot = 0.1;
-            double SpeedOfArm = 0.8;
-            if (gamepad2.a) {
-                extendLevel1(100, 0.5);
-            } else {
-                viperSlide.setPower(0);
-            }
-            if (gamepad2.b) {
-                extendLevel2(200, 0.5);
-            } else {
-                viperSlide.setPower(0);
-            }
-            if (gamepad2.y) {
-                extendLevel3(300, 0.5);
-            } else {
-                viperSlide.setPower(0);
-            }
-
-
-            if (gamepad2.dpad_up) {
-                viperSlide.setPower(SpeedOfArm);
-            } else if (gamepad2.dpad_down) {
-                viperSlide.setPower(-SpeedOfArm);
-            } else {
-                viperSlide.setPower(0);
+                if (gamepad1.dpad_down) {
+                    frontLeft.setPower(0.5);
+                    frontRight.setPower(0.5);
+                    backLeft.setPower(-0.5);
+                    backRight.setPower(-0.5);
+                } else {
+                    if (gamepad1.dpad_up) {
+                        frontLeft.setPower(-0.5);
+                        frontRight.setPower(-0.5);
+                        backLeft.setPower(0.5);
+                        backRight.setPower(0.5);
+                    } else {
+                        if (gamepad1.dpad_left) {
+                            frontRight.setPower(-0.5);
+                            frontLeft.setPower(0.5);
+                            backRight.setPower(0.5);
+                            backLeft.setPower(-0.5);
+                        } else if (gamepad1.dpad_right) {
+                            frontRight.setPower(0.5);
+                            frontLeft.setPower(0.5);
+                            backRight.setPower(0.5);
+                            backLeft.setPower(0.5);
+                        } else {
+                            frontLeft.setPower(0);
+                            frontRight.setPower(0);
+                            backLeft.setPower(0);
+                            backRight.setPower(0);
+                            if (gamepad1.right_bumper) {
+                                frontRight.setPower(0.5);
+                                frontLeft.setPower(0.5);
+                                backRight.setPower(0.5);
+                                backLeft.setPower(0.5);
+                            } else if (gamepad1.left_bumper) {
+                                frontRight.setPower(-0.5);
+                                frontLeft.setPower(-0.5);
+                                backRight.setPower(-0.5);
+                                backLeft.setPower(-0.5);
+                            }
+                        }
+                    }
+                }
             }
 
         }
