@@ -27,11 +27,10 @@ public class AlphaBotTeleOp extends LinearOpMode {
         grabberRight = hardwareMap.get(Servo.class, "grabberRight");
         grabberLeft = hardwareMap.get(Servo.class, "grabberLeft");
 
-
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
         waitForStart();
         grabberRight.setDirection(Servo.Direction.REVERSE);
@@ -39,63 +38,63 @@ public class AlphaBotTeleOp extends LinearOpMode {
         grabberRight.setPosition(0);
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                if (gamepad1.a) {
-                    grabberLeft.setPosition(0.2);
-                    grabberRight.setPosition(0.2);
+                if (gamepad2.a) {
+                    grabberLeft.setPosition(0.25);
+                    grabberRight.setPosition(0.25);
                 }
-                if (gamepad1.b) {
+                if (gamepad2.b) {
                     grabberLeft.setPosition(0);
                     grabberRight.setPosition(0);
                 }
 
-                if (gamepad2.dpad_up) {
+                if (gamepad2.dpad_down) {
                     viperSlide.setPower(1);
                 } else {
                     viperSlide.setPower(0);
                 }
-                if (gamepad2.dpad_down) {
+                if (gamepad2.dpad_up) {
                     viperSlide.setPower(-1);
                 } else {
                     viperSlide.setPower(0);
                 }
 
                 if (gamepad1.dpad_down) {
-                    frontLeft.setPower(0.5);
-                    frontRight.setPower(0.5);
+                    frontLeft.setPower(-0.5);
+                    frontRight.setPower(-0.5);
                     backLeft.setPower(-0.5);
                     backRight.setPower(-0.5);
                 } else {
                     if (gamepad1.dpad_up) {
-                        frontLeft.setPower(-0.5);
-                        frontRight.setPower(-0.5);
+                        frontLeft.setPower(0.5);
+                        frontRight.setPower(0.5);
                         backLeft.setPower(0.5);
                         backRight.setPower(0.5);
                     } else {
                         if (gamepad1.dpad_left) {
+                            frontRight.setPower(0.5);
+                            frontLeft.setPower(-0.5);
+                            backLeft.setPower(-0.5);
+                            backRight.setPower(0.5);
+                        } else if (gamepad1.dpad_right) {
                             frontRight.setPower(-0.5);
                             frontLeft.setPower(0.5);
-                            backRight.setPower(0.5);
-                            backLeft.setPower(-0.5);
-                        } else if (gamepad1.dpad_right) {
-                            frontRight.setPower(0.5);
-                            frontLeft.setPower(0.5);
-                            backRight.setPower(0.5);
                             backLeft.setPower(0.5);
+                            backRight.setPower(-0.5);
                         } else {
                             frontLeft.setPower(0);
                             frontRight.setPower(0);
                             backLeft.setPower(0);
                             backRight.setPower(0);
                             if (gamepad1.right_bumper) {
-                                frontRight.setPower(0.5);
+                                frontRight.setPower(-0.5);
                                 frontLeft.setPower(0.5);
                                 backRight.setPower(0.5);
-                                backLeft.setPower(0.5);
+                                backLeft.setPower(-0.5);
                             } else if (gamepad1.left_bumper) {
-                                frontRight.setPower(-0.5);
+                                frontRight.setPower(0.5);
                                 frontLeft.setPower(-0.5);
                                 backRight.setPower(-0.5);
-                                backLeft.setPower(-0.5);
+                                backLeft.setPower(0.5);
                             }
                         }
                     }
