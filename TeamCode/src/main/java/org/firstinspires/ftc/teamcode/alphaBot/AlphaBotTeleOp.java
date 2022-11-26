@@ -59,27 +59,27 @@ public class AlphaBotTeleOp extends LinearOpMode {
                 }
 
                 if (gamepad1.dpad_down) {
-                    frontLeft.setPower(-0.5);
-                    frontRight.setPower(-0.5);
-                    backLeft.setPower(-0.5);
-                    backRight.setPower(-0.5);
+                    frontLeft.setPower(-0.4);
+                    frontRight.setPower(-0.4);
+                    backLeft.setPower(-0.4);
+                    backRight.setPower(-0.4);
                 } else {
                     if (gamepad1.dpad_up) {
-                        frontLeft.setPower(0.5);
-                        frontRight.setPower(0.5);
-                        backLeft.setPower(0.5);
-                        backRight.setPower(0.5);
+                        frontLeft.setPower(0.4);
+                        frontRight.setPower(0.4);
+                        backLeft.setPower(0.4);
+                        backRight.setPower(0.4);
                     } else {
                         if (gamepad1.dpad_left) {
-                            frontRight.setPower(0.5);
-                            frontLeft.setPower(-0.5);
-                            backLeft.setPower(-0.5);
-                            backRight.setPower(0.5);
+                            frontRight.setPower(0.4);
+                            frontLeft.setPower(-0.4);
+                            backLeft.setPower(-0.4);
+                            backRight.setPower(0.4);
                         } else if (gamepad1.dpad_right) {
-                            frontRight.setPower(-0.5);
-                            frontLeft.setPower(0.5);
-                            backLeft.setPower(0.5);
-                            backRight.setPower(-0.5);
+                            frontRight.setPower(-0.4);
+                            frontLeft.setPower(0.4);
+                            backLeft.setPower(0.4);
+                            backRight.setPower(-0.4);
                         } else {
                             frontLeft.setPower(0);
                             frontRight.setPower(0);

@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 
-@Autonomous(name = "RedSideAutonomous", preselectTeleOp = "AlphaBotTeleOp")
-public class RedSideAutonomous extends LinearOpMode {
+@Autonomous(name = "AutonomousLeft", preselectTeleOp = "AlphaBotTeleOp")
+public class AutonomousLeft extends LinearOpMode {
 
     private ColorSensor colorSensor;
     private DcMotor frontRight;
@@ -19,6 +19,7 @@ public class RedSideAutonomous extends LinearOpMode {
     private DcMotor backLeft;
     private Servo grabberRight;
     private Servo grabberLeft;
+    private DcMotor viperSlide;
 
 
     @Override
@@ -33,6 +34,7 @@ public class RedSideAutonomous extends LinearOpMode {
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         grabberRight = hardwareMap.get(Servo.class, "grabberRight");
         grabberLeft = hardwareMap.get(Servo.class, "grabberLeft");
+        viperSlide = hardwareMap.get(DcMotor.class, "viperSlide");
 
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -63,7 +65,7 @@ public class RedSideAutonomous extends LinearOpMode {
         if (parkingSpot == 1) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 1");
-            drive(0.3, 400);
+            drive(0.3, 150);
             Thread.sleep(150);
             strafeLeft(0.4,1650);
             Thread.sleep(150);
@@ -73,7 +75,7 @@ public class RedSideAutonomous extends LinearOpMode {
         if (parkingSpot == 2) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 2");
-            drive(0.3, 400);
+            drive(0.3, 150);
             Thread.sleep(150);
         } else {
             idle();
@@ -81,11 +83,10 @@ public class RedSideAutonomous extends LinearOpMode {
         if (parkingSpot == 3) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 3");
-            drive(0.3, 400);
+            drive(0.3, 150);
             Thread.sleep(150);
             strafeRight(0.4,1600);
             Thread.sleep(150);
-            drive(0.3,300);
         } else {
             idle();
         }
@@ -126,6 +127,7 @@ public class RedSideAutonomous extends LinearOpMode {
         backLeft.setPower(0);
 
     }
+
 
 
 }
