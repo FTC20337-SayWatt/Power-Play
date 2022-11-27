@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 
-@Autonomous(name = "AutonomousLeft", preselectTeleOp = "AlphaBotTeleOp")
-public class AutonomousLeft extends LinearOpMode {
+@Autonomous(name = "AutonomousRight", preselectTeleOp = "AlphaBotTeleOp")
+public class AutonomousRight extends LinearOpMode {
 
     private ColorSensor colorSensor;
     private DcMotor frontRight;
@@ -43,8 +43,8 @@ public class AutonomousLeft extends LinearOpMode {
         colorSensor.enableLed(false);
         colorSensor.enableLed(true);
         waitForStart();
-        strafeLeft(0.4,1450);
-        strafeRight(0.4, 1450);
+        strafeRight(0.4,1450);
+        strafeLeft(0.4, 1450);
         drive(0.3, 1500);
         Thread.sleep(500);
 
@@ -65,28 +65,9 @@ public class AutonomousLeft extends LinearOpMode {
         if (parkingSpot == 1) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 1");
-            drive(0.3, 1200);
+            drive(0.3, 150);
             Thread.sleep(150);
-            turn(0.3, 600,false);
-            Thread.sleep(150);
-            drive(0.3, 1000);
-            Thread.sleep(150);
-            grab(0.25, true);
-            extendSlide(1,400);
-            grab(0, false);
-            drive(0.3, 200);
-            Thread.sleep(150);
-            grab(0.25, true);
-            extendSlide(1, 800);
-            Thread.sleep(150);
-            drive(-0.3, 1000);
-            Thread.sleep(150);
-            turn(0.3, 500, false);
-            Thread.sleep(150);
-            grab(0,false);
-            extendSlide(-1, 800);
-            Thread.sleep(150);
-            strafeRight(0.4,1650);
+            strafeLeft(0.4,1650);
             Thread.sleep(150);
         } else {
             idle();
@@ -146,37 +127,7 @@ public class AutonomousLeft extends LinearOpMode {
         backLeft.setPower(0);
 
     }
-    public void turn(double speed, long time, boolean right) throws  InterruptedException {
-        if (right) {
-            frontRight.setPower(-speed);
-            frontLeft.setPower(speed);
-            backRight.setPower(-speed);
-            backLeft.setPower(speed);
-        } else {
-            frontRight.setPower(speed);
-            frontLeft.setPower(-speed);
-            backRight.setPower(speed);
-            backLeft.setPower(-speed);
-        }
-        Thread.sleep(time);
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(0);
-    }
-    private void extendSlide(double speed, long time) throws InterruptedException {
-        viperSlide.setPower(speed);
-        Thread.sleep(time);
-        viperSlide.setPower(0);
-    }
-    private void grab(double position, boolean clamp) throws InterruptedException {
-        if (clamp){
-            grabberLeft.setPosition(position);
-            grabberRight.setPosition(position);
-        } else {
-            grabberLeft.setPosition(0);
-            grabberRight.setPosition(0);
-        }
 
-    }
+
+
 }
