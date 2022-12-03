@@ -43,9 +43,12 @@ public class AutonomousLeft extends LinearOpMode {
         colorSensor.enableLed(false);
         colorSensor.enableLed(true);
         waitForStart();
+        grabberRight.setDirection(Servo.Direction.REVERSE);
+        grabberLeft.setPosition(0.1);
+        grabberRight.setPosition(0.1);
         strafeLeft(0.4,1450);
-        strafeRight(0.4, 1450);
-        drive(0.3, 1500);
+        strafeRight(0.4, 1350);
+        drive(0.3, 1475);
         Thread.sleep(500);
 
         if (isStarted()) {
@@ -65,36 +68,81 @@ public class AutonomousLeft extends LinearOpMode {
         if (parkingSpot == 1) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 1");
-            drive(0.3, 1200);
+            drive(0.3, 1400);
             Thread.sleep(150);
-            turn(0.3, 600,false);
+            turn(0.3, 120, false);
+            Thread.sleep(150);
+            strafeLeft(0.4, 275);
+            Thread.sleep(150);
+            drive(0.3, 1400);
+            Thread.sleep(150);
+            drive(-0.3, 800);
+            turn(0.3,1575,false);
+            Thread.sleep(150);
+            drive(0.3, 1625);
+            Thread.sleep(150);
+            extendSlide(1,700);
+            Thread.sleep(5);
+            grabberLeft.setPosition(0.25);
+            grabberRight.setPosition(0.25);
+            Thread.sleep(150);
+            extendSlide(1,350);
+            Thread.sleep(150);
+            drive(-0.3,925);
+            Thread.sleep(150);
+            strafeRight(0.3, 500);
+            turn(0.3, 1875, false);
+            extendSlide(1,875);
+            Thread.sleep(30);
+            drive(0.3, 300);
+            Thread.sleep(150);
+            grabberLeft.setPosition(0.1);
+            grabberRight.setPosition(0.1);
+            Thread.sleep(150);
+            drive(-0.3, 150);
+            Thread.sleep(150);
+            strafeRight(0.3, 1300);
             Thread.sleep(150);
             drive(0.3, 1000);
             Thread.sleep(150);
-            grab(0.25, true);
-            extendSlide(1,400);
-            grab(0, false);
-            drive(0.3, 200);
-            Thread.sleep(150);
-            grab(0.25, true);
-            extendSlide(1, 800);
-            Thread.sleep(150);
-            drive(-0.3, 1000);
-            Thread.sleep(150);
-            turn(0.3, 500, false);
-            Thread.sleep(150);
-            grab(0,false);
-            extendSlide(-1, 800);
-            Thread.sleep(150);
-            strafeRight(0.4,1650);
-            Thread.sleep(150);
+            turn(0.3, 275, false);
+
         } else {
             idle();
         }
         if (parkingSpot == 2) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 2");
-            drive(0.3, 150);
+            drive(0.3, 1400);
+            drive(0.3, 1400);
+            drive(-0.3, 700);
+            Thread.sleep(150);
+            turn(0.3,1750,false);
+            Thread.sleep(150);
+            drive(0.3, 1625);
+            Thread.sleep(150);
+            extendSlide(1,50);
+            Thread.sleep(5);
+            grabberLeft.setPosition(0.25);
+            grabberRight.setPosition(0.25);
+            Thread.sleep(300);
+            extendSlide(1,350);
+            Thread.sleep(150);
+            drive(-0.3,925);
+            strafeRight(0.3, 500);
+            turn(0.3, 1875, false);
+            extendSlide(1,875);
+            Thread.sleep(30);
+            drive(0.3, 300);
+            Thread.sleep(150);
+            grabberLeft.setPosition(0.1);
+            grabberRight.setPosition(0.1);
+            Thread.sleep(150);
+            drive(-0.3, 150);
+            Thread.sleep(150);
+            strafeLeft(0.3, 1050);
+            Thread.sleep(150);
+            drive(0.3, 900);
             Thread.sleep(150);
         } else {
             idle();
@@ -102,10 +150,36 @@ public class AutonomousLeft extends LinearOpMode {
         if (parkingSpot == 3) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 3");
-            drive(0.3, 150);
+            drive(0.3, 1400);
+            drive(0.3, 1400);
+            drive(-0.3, 700);
             Thread.sleep(150);
-            strafeRight(0.4,1600);
+            turn(0.3,1750,false);
             Thread.sleep(150);
+            drive(0.3, 1625);
+            Thread.sleep(150);
+            extendSlide(1,50);
+            Thread.sleep(5);
+            grabberLeft.setPosition(0.25);
+            grabberRight.setPosition(0.25);
+            Thread.sleep(300);
+            extendSlide(1,350);
+            Thread.sleep(150);
+            drive(-0.3,925);
+            strafeRight(0.3, 500);
+            turn(0.3, 1875, false);
+            extendSlide(1,875);
+            Thread.sleep(30);
+            drive(0.3, 300);
+            Thread.sleep(150);
+            grabberLeft.setPosition(0.1);
+            grabberRight.setPosition(0.1);
+            Thread.sleep(150);
+            drive(-0.3, 150);
+            Thread.sleep(150);
+            strafeLeft(0.5, 3250);
+            Thread.sleep(150);
+            drive(0.3, 1000);
         } else {
             idle();
         }
@@ -169,14 +243,9 @@ public class AutonomousLeft extends LinearOpMode {
         Thread.sleep(time);
         viperSlide.setPower(0);
     }
-    private void grab(double position, boolean clamp) throws InterruptedException {
-        if (clamp){
-            grabberLeft.setPosition(position);
-            grabberRight.setPosition(position);
-        } else {
-            grabberLeft.setPosition(0);
-            grabberRight.setPosition(0);
-        }
+    private void grab(double position) throws InterruptedException {
+        grabberLeft.setPosition(position);
+        grabberRight.setPosition(position);
 
     }
 }

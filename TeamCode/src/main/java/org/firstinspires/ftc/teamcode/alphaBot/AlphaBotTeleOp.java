@@ -38,13 +38,22 @@ public class AlphaBotTeleOp extends LinearOpMode {
         grabberRight.setPosition(0);
         if (opModeIsActive()) {
             while (opModeIsActive()) {
+                double speed = 0.5;
+                if (gamepad1.y) {
+                    telemetry.addLine("Fast Speed");
+                    speed = 1;
+                } else {
+                        telemetry.addLine("Regular Speed");
+                        speed = 0.5;
+                    }
+
                 if (gamepad2.a) {
                     grabberLeft.setPosition(0.25);
                     grabberRight.setPosition(0.25);
                 }
                 if (gamepad2.b) {
-                    grabberLeft.setPosition(0);
-                    grabberRight.setPosition(0);
+                    grabberLeft.setPosition(0.1);
+                    grabberRight.setPosition(0.1);
                 }
 
                 if (gamepad2.dpad_down) {
@@ -59,42 +68,42 @@ public class AlphaBotTeleOp extends LinearOpMode {
                 }
 
                 if (gamepad1.dpad_down) {
-                    frontLeft.setPower(-0.4);
-                    frontRight.setPower(-0.4);
-                    backLeft.setPower(-0.4);
-                    backRight.setPower(-0.4);
+                    frontLeft.setPower(-speed);
+                    frontRight.setPower(-speed);
+                    backLeft.setPower(-speed);
+                    backRight.setPower(-speed);
                 } else {
                     if (gamepad1.dpad_up) {
-                        frontLeft.setPower(0.4);
-                        frontRight.setPower(0.4);
-                        backLeft.setPower(0.4);
-                        backRight.setPower(0.4);
+                        frontLeft.setPower(speed);
+                        frontRight.setPower(speed);
+                        backLeft.setPower(speed);
+                        backRight.setPower(speed);
                     } else {
                         if (gamepad1.dpad_left) {
-                            frontRight.setPower(0.4);
-                            frontLeft.setPower(-0.4);
-                            backLeft.setPower(-0.4);
-                            backRight.setPower(0.4);
+                            frontRight.setPower(speed);
+                            frontLeft.setPower(-speed);
+                            backLeft.setPower(-speed);
+                            backRight.setPower(speed);
                         } else if (gamepad1.dpad_right) {
-                            frontRight.setPower(-0.4);
-                            frontLeft.setPower(0.4);
-                            backLeft.setPower(0.4);
-                            backRight.setPower(-0.4);
+                            frontRight.setPower(-speed);
+                            frontLeft.setPower(speed);
+                            backLeft.setPower(speed);
+                            backRight.setPower(-speed);
                         } else {
                             frontLeft.setPower(0);
                             frontRight.setPower(0);
                             backLeft.setPower(0);
                             backRight.setPower(0);
                             if (gamepad1.right_bumper) {
-                                frontRight.setPower(-0.5);
-                                frontLeft.setPower(0.5);
-                                backRight.setPower(0.5);
-                                backLeft.setPower(-0.5);
+                                frontRight.setPower(-speed);
+                                frontLeft.setPower(speed);
+                                backRight.setPower(speed);
+                                backLeft.setPower(-speed);
                             } else if (gamepad1.left_bumper) {
-                                frontRight.setPower(0.5);
-                                frontLeft.setPower(-0.5);
-                                backRight.setPower(-0.5);
-                                backLeft.setPower(0.5);
+                                frontRight.setPower(speed);
+                                frontLeft.setPower(-speed);
+                                backRight.setPower(-speed);
+                                backLeft.setPower(speed);
                             }
                         }
                     }

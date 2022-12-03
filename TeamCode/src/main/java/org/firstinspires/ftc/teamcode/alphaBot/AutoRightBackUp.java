@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 
-@Autonomous(name = "AutonomousRight", preselectTeleOp = "AlphaBotTeleOp")
-public class AutonomousRight extends LinearOpMode {
+@Autonomous(name = "AutoRightBackUp", preselectTeleOp = "AlphaBotTeleOp")
+public class AutoRightBackUp extends LinearOpMode {
 
     private ColorSensor colorSensor;
     private DcMotor frontRight;
@@ -43,10 +43,9 @@ public class AutonomousRight extends LinearOpMode {
         colorSensor.enableLed(false);
         colorSensor.enableLed(true);
         waitForStart();
-        drive(0.3, 500);
         strafeRight(0.4,1450);
-        strafeLeft(0.4, 1425);
-        drive(0.3, 1225);
+        strafeLeft(0.4, 1325);
+        drive(0.3, 1500);
         Thread.sleep(500);
 
         if (isStarted()) {
@@ -66,108 +65,28 @@ public class AutonomousRight extends LinearOpMode {
         if (parkingSpot == 1) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 1");
-            drive(0.3, 1400);
-            drive(0.3, 1400);
-            drive(-0.3, 700);
-            Thread.sleep(150);
-            turn(0.3,1750,true);
-            Thread.sleep(150);
-            drive(0.3, 1625);
-            Thread.sleep(150);
-            extendSlide(1,50);
-            Thread.sleep(5);
-            grabberLeft.setPosition(0.25);
-            grabberRight.setPosition(0.25);
-            Thread.sleep(300);
-            extendSlide(1,350);
-            Thread.sleep(150);
-            drive(-0.3,925);
-            strafeLeft(0.3, 500);
-            turn(0.3, 1875, true);
-            extendSlide(1,875);
-            Thread.sleep(30);
             drive(0.3, 300);
             Thread.sleep(150);
-            grabberLeft.setPosition(0.1);
-            grabberRight.setPosition(0.1);
-            Thread.sleep(150);
-            drive(-0.3, 150);
-            Thread.sleep(150);
-            strafeRight(0.5, 3250);
-            Thread.sleep(150);
-            drive(0.3, 1000);
+            strafeLeft(0.4,1650);
+
         } else {
             idle();
         }
         if (parkingSpot == 2) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 2");
-            drive(0.3, 1400);
-            drive(0.3, 1400);
-            drive(-0.3, 700);
+            drive(0.3, 400);
             Thread.sleep(150);
-            turn(0.3,1750,true);
-            Thread.sleep(150);
-            drive(0.3, 1625);
-            Thread.sleep(150);
-            extendSlide(1,50);
-            Thread.sleep(5);
-            grabberLeft.setPosition(0.25);
-            grabberRight.setPosition(0.25);
-            Thread.sleep(300);
-            extendSlide(1,350);
-            Thread.sleep(150);
-            drive(-0.3,925);
-            strafeLeft(0.3, 500);
-            turn(0.3, 1875, true);
-            extendSlide(1,875);
-            Thread.sleep(30);
-            drive(0.3, 300);
-            Thread.sleep(150);
-            grabberLeft.setPosition(0.1);
-            grabberRight.setPosition(0.1);
-            Thread.sleep(150);
-            drive(-0.3, 150);
-            Thread.sleep(150);
-            strafeRight(0.3, 1050);
-            Thread.sleep(150);
-            drive(0.3, 900);
         } else {
             idle();
         }
         if (parkingSpot == 3) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 3");
-            drive(0.3, 1400);
-            drive(0.3, 1400);
-            drive(-0.3, 700);
-            Thread.sleep(150);
-            turn(0.3,1750,true);
-            Thread.sleep(150);
-            drive(0.3, 1625);
-            Thread.sleep(150);
-            extendSlide(1,50);
-            Thread.sleep(5);
-            grabberLeft.setPosition(0.25);
-            grabberRight.setPosition(0.25);
-            Thread.sleep(300);
-            extendSlide(1,350);
-            Thread.sleep(150);
-            drive(-0.3,925);
-            strafeLeft(0.3, 500);
-            turn(0.3, 1875, true);
-            extendSlide(1,875);
-            Thread.sleep(30);
             drive(0.3, 300);
             Thread.sleep(150);
-            grabberLeft.setPosition(0.1);
-            grabberRight.setPosition(0.1);
+            strafeRight(0.4,1650);
             Thread.sleep(150);
-            drive(-0.3, 150);
-            Thread.sleep(150);
-            strafeLeft(0.3, 1300);
-            Thread.sleep(150);
-            drive(0.3, 950);
         } else {
             idle();
         }
@@ -226,16 +145,6 @@ public class AutonomousRight extends LinearOpMode {
         backLeft.setPower(0);
         backRight.setPower(0);
     }
-    private void extendSlide(double speed, long time) throws InterruptedException {
-        viperSlide.setPower(speed);
-        Thread.sleep(time);
-        viperSlide.setPower(0);
-    }
-    private void grab(double position) throws InterruptedException {
-        grabberLeft.setPosition(position);
-        grabberRight.setPosition(position);
-
-    }
-
 
 }
+
