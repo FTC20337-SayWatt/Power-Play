@@ -55,14 +55,14 @@
     <!-- ======================================================================================= -->
 
     <!-- Microsoft Lifecam HD 3000 v1, Calibrated by PTC using unknown tooling -->
-    <!-- <Camera vid="Microsoft" pid="0x0779">
+    <Camera vid="Microsoft" pid="0x0779">
         <Calibration
             size="640 480"
             focalLength="678.154f, 678.17f"
             principalPoint="318.135f, 228.374f"
             distortionCoefficients="0.154576f, -1.19143f, 0f, 0f, 2.06105f, 0f, 0f, 0f"
             />
-    </Camera> -->
+    </Camera>
 
     <!-- ======================================================================================= -->
 
