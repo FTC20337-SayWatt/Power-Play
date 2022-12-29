@@ -38,13 +38,13 @@ public class AlphaBotTeleOp extends LinearOpMode {
         grabberRight.setPosition(0);
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                double speed = 0.5;
+                double speed = 0.35;
                 if (gamepad1.y) {
                     telemetry.addLine("Fast Speed");
                     speed = 1;
                 } else {
                         telemetry.addLine("Regular Speed");
-                        speed = 0.5;
+                        speed = 0.35;
                     }
 
                 if (gamepad2.a) {
@@ -95,15 +95,15 @@ public class AlphaBotTeleOp extends LinearOpMode {
                             backLeft.setPower(0);
                             backRight.setPower(0);
                             if (gamepad1.right_bumper) {
-                                frontRight.setPower(-speed);
-                                frontLeft.setPower(speed);
-                                backRight.setPower(speed);
-                                backLeft.setPower(-speed);
+                                frontRight.setPower(-0.7);
+                                frontLeft.setPower(0.7);
+                                backRight.setPower(0.7);
+                                backLeft.setPower(-0.7);
                             } else if (gamepad1.left_bumper) {
-                                frontRight.setPower(speed);
-                                frontLeft.setPower(-speed);
-                                backRight.setPower(-speed);
-                                backLeft.setPower(speed);
+                                frontRight.setPower(0.7);
+                                frontLeft.setPower(-0.7);
+                                backRight.setPower(-0.7);
+                                backLeft.setPower(0.7);
                             }
                         }
                     }

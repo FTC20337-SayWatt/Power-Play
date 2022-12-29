@@ -43,9 +43,14 @@ public class AutoLeftBackUp extends LinearOpMode {
         colorSensor.enableLed(false);
         colorSensor.enableLed(true);
         waitForStart();
-        strafeLeft(0.4,1450);
-        strafeRight(0.4, 1325);
-        drive(0.3, 1500);
+        grabberRight.setDirection(Servo.Direction.REVERSE);
+        grabberLeft.setPosition(0.1);
+        grabberRight.setPosition(0.1);
+        strafeLeft(0.4,1350);
+        strafeRight(0.4, 1350);
+        drive(-0.3, 550);
+        Thread.sleep(150);
+        drive(0.3, 1700);
         Thread.sleep(500);
 
         if (isStarted()) {
@@ -65,9 +70,11 @@ public class AutoLeftBackUp extends LinearOpMode {
         if (parkingSpot == 1) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 1");
-            drive(0.3, 300);
-            Thread.sleep(150);
             strafeLeft(0.4,1650);
+            Thread.sleep(150);
+            drive(0.4, 350);
+            Thread.sleep(150);
+            turn(0.3, 250, true);
 
         } else {
             idle();
@@ -75,18 +82,20 @@ public class AutoLeftBackUp extends LinearOpMode {
         if (parkingSpot == 2) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 2");
-            drive(0.3, 400);
+            turn(0.3, 200, true);
             Thread.sleep(150);
+            drive(0.3, 225);
         } else {
             idle();
         }
         if (parkingSpot == 3) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 3");
-            drive(0.3, 300);
+            turn(0.3, 200, true);
             Thread.sleep(150);
             strafeRight(0.4,1650);
             Thread.sleep(150);
+            drive(0.4, 225);
         } else {
             idle();
         }

@@ -43,10 +43,14 @@ public class AutoRightBackUp extends LinearOpMode {
         colorSensor.enableLed(false);
         colorSensor.enableLed(true);
         waitForStart();
-        strafeRight(0.4,1450);
-        strafeLeft(0.4, 1325);
-        drive(0.3, 1500);
-        Thread.sleep(500);
+        grabberRight.setDirection(Servo.Direction.REVERSE);
+        grabberLeft.setPosition(0.1);
+        grabberRight.setPosition(0.1);
+        strafeRight(0.4,1350);
+        strafeLeft(0.4, 1350);
+        drive(-0.3, 550);
+        Thread.sleep(150);
+        drive(0.3, 1700);
 
         if (isStarted()) {
             CurrentColor = JavaUtil.rgbToHue(colorSensor.red(), colorSensor.green(), colorSensor.blue());
@@ -65,7 +69,7 @@ public class AutoRightBackUp extends LinearOpMode {
         if (parkingSpot == 1) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 1");
-            drive(0.3, 300);
+            drive(0.3, 100);
             Thread.sleep(150);
             strafeLeft(0.4,1650);
 
@@ -75,7 +79,7 @@ public class AutoRightBackUp extends LinearOpMode {
         if (parkingSpot == 2) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 2");
-            drive(0.3, 400);
+            drive(0.3, 100);
             Thread.sleep(150);
         } else {
             idle();
@@ -83,9 +87,9 @@ public class AutoRightBackUp extends LinearOpMode {
         if (parkingSpot == 3) {
             Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 3");
-            drive(0.3, 300);
-            Thread.sleep(150);
             strafeRight(0.4,1650);
+            Thread.sleep(150);
+            drive(0.3, 400);
             Thread.sleep(150);
         } else {
             idle();
