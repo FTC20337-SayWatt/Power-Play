@@ -11,22 +11,20 @@ import org.firstinspires.ftc.robotcore.external.JavaUtil;
 
 @Autonomous(name = "AutoLeftBackUp", preselectTeleOp = "AlphaBotTeleOp")
 public class AutoLeftBackUp extends LinearOpMode {
-
     private ColorSensor colorSensor;
     private DcMotor frontRight;
     private DcMotor frontLeft;
     private DcMotor backRight;
-    private DcMotor backLeft;
+    private DcMotor  backLeft;
     private Servo grabberRight;
     private Servo grabberLeft;
     private DcMotor viperSlide;
-
-
+    private int leftPos;
+    private int rightPos;
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() throws InterruptedException{
         float CurrentColor;
         float parkingSpot = 0;
-
         colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
@@ -36,116 +34,137 @@ public class AutoLeftBackUp extends LinearOpMode {
         grabberLeft = hardwareMap.get(Servo.class, "grabberLeft");
         viperSlide = hardwareMap.get(DcMotor.class, "viperSlide");
 
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.FORWARD);
         colorSensor.enableLed(false);
         colorSensor.enableLed(true);
+
+        leftPos = 0;
+        rightPos = 0;
+
         waitForStart();
-        strafeLeft(0.4,1450);
-        strafeRight(0.4, 1325);
-        drive(0.3, 1500);
-        Thread.sleep(500);
+        grabberRight.setDirection(Servo.Direction.REVERSE);
+        grabberLeft.setPosition(0.1);
+        grabberRight.setPosition(0.1);
+        strafeLeft(1200, 1200, 0.4);
+        Thread.sleep(1200);
+        strafeRight(1350, 1350, 0.4);
+        Thread.sleep(1350);
+        drive(1800, 1800, 0.3);
+        Thread.sleep(1800);
+        stop(900);
 
         if (isStarted()) {
             CurrentColor = JavaUtil.rgbToHue(colorSensor.red(), colorSensor.green(), colorSensor.blue());
             telemetry.addData("Hue", CurrentColor);
             telemetry.update();
 
-            if (CurrentColor < 220 & CurrentColor > 165) {
+            if (CurrentColor < 240 & CurrentColor > 165) {
                 parkingSpot = 1;
-            } else if (CurrentColor < 170 & CurrentColor > 125) {
+            } else if (CurrentColor < 165 & CurrentColor > 125) {
                 parkingSpot = 2;
             } else {
                 parkingSpot = 3;
             }
         }
-
         if (parkingSpot == 1) {
-            Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 1");
-            drive(0.3, 300);
-            Thread.sleep(150);
-            strafeLeft(0.4,1650);
-
-        } else {
-            idle();
+            strafeLeft(1375, 1375, 0.4);
+            Thread.sleep(1375);
+            drive(500, 500, 0.4);
+            Thread.sleep(500);
         }
+
         if (parkingSpot == 2) {
-            Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 2");
-            drive(0.3, 400);
-            Thread.sleep(150);
-        } else {
-            idle();
+            drive(500, 500, 0.4);
+            Thread.sleep(500);
         }
         if (parkingSpot == 3) {
-            Thread.sleep(450);
             telemetry.addLine("Hue Detected. Move to Parking Spot 3");
-            drive(0.3, 300);
-            Thread.sleep(150);
-            strafeRight(0.4,1650);
-            Thread.sleep(150);
-        } else {
-            idle();
+            strafeRight(1375, 1375, 0.4);
+            Thread.sleep(1375);
+            drive(500, 500, 0.4);
+            Thread.sleep(500);
         }
+
     }
 
-    public void drive(double speed, long time) throws InterruptedException {
-        frontLeft.setPower(speed);
-        frontRight.setPower(speed);
-        backLeft.setPower(speed);
-        backRight.setPower(speed);
-        Thread.sleep(time);
-        frontLeft.setPower(0);
-        frontRight.setPower(0);
-        backLeft.setPower(0);
-        backRight.setPower(0);
-    }
+    public void drive(int leftTarget, int rightTarget, double speed) throws InterruptedException {
+        leftPos += leftTarget;
+        rightPos += rightTarget;
 
-    private void strafeLeft(double speed, long time) throws InterruptedException {
-        frontRight.setPower(speed);
-        frontLeft.setPower(-speed);
-        backRight.setPower(-speed);
-        backLeft.setPower(speed);
-        Thread.sleep(time);
-        frontRight.setPower(0);
-        frontLeft.setPower(0);
-        backRight.setPower(0);
-        backLeft.setPower(0);
-    }
-    private void strafeRight(double speed, long time) throws InterruptedException {
-        frontRight.setPower(-speed);
+
+        frontLeft.setTargetPosition(leftPos);
+        backLeft.setTargetPosition(leftPos);
+        frontRight.setTargetPosition(rightPos);
+        backRight.setTargetPosition(rightPos);
+
+        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         frontLeft.setPower(speed);
         backRight.setPower(speed);
-        backLeft.setPower(-speed);
-        Thread.sleep(time);
-        frontRight.setPower(0);
-        frontLeft.setPower(0);
-        backRight.setPower(0);
-        backLeft.setPower(0);
+        frontRight.setPower(speed);
+        backLeft.setPower(speed);
+
 
     }
-    public void turn(double speed, long time, boolean right) throws  InterruptedException {
-        if (right) {
-            frontRight.setPower(-speed);
-            frontLeft.setPower(speed);
-            backRight.setPower(-speed);
-            backLeft.setPower(speed);
-        } else {
-            frontRight.setPower(speed);
-            frontLeft.setPower(-speed);
-            backRight.setPower(speed);
-            backLeft.setPower(-speed);
-        }
-        Thread.sleep(time);
+
+
+    public void strafeLeft( int leftTarget, int rightTarget, double speed) throws InterruptedException  {
+        leftPos += leftTarget;
+        rightPos += rightTarget;
+
+        frontLeft.setTargetPosition(-leftPos);
+        backLeft.setTargetPosition(leftPos);
+        frontRight.setTargetPosition(rightPos);
+        backRight.setTargetPosition(-rightPos);
+
+        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        frontLeft.setPower(speed);
+        backRight.setPower(speed);
+        frontRight.setPower(speed);
+        backLeft.setPower(speed);
+    }
+    public void strafeRight( int leftTarget, int rightTarget, double speed) throws InterruptedException  {
+        leftPos += leftTarget;
+        rightPos += rightTarget;
+
+        frontLeft.setTargetPosition(leftPos);
+        backLeft.setTargetPosition(-leftPos);
+        frontRight.setTargetPosition(-rightPos);
+        backRight.setTargetPosition(rightPos);
+
+        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        frontLeft.setPower(speed);
+        backRight.setPower(speed);
+        frontRight.setPower(speed);
+        backLeft.setPower(speed);
+    }
+    public void stop(long time) throws InterruptedException {
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
+        Thread.sleep(time);
     }
-
 
 }
-
