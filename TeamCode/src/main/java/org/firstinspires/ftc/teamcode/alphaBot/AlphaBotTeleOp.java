@@ -34,8 +34,8 @@ public class AlphaBotTeleOp extends LinearOpMode {
 
         waitForStart();
         grabberRight.setDirection(Servo.Direction.REVERSE);
-        grabberLeft.setPosition(0);
-        grabberRight.setPosition(0);
+        grabberLeft.setPosition(0.1);
+        grabberRight.setPosition(0.1);
         if (opModeIsActive()) {
             while (opModeIsActive()) {
                 double speed = 0.35;
@@ -95,15 +95,15 @@ public class AlphaBotTeleOp extends LinearOpMode {
                             backLeft.setPower(0);
                             backRight.setPower(0);
                             if (gamepad1.right_bumper) {
-                                frontRight.setPower(-0.7);
-                                frontLeft.setPower(0.7);
-                                backRight.setPower(0.7);
-                                backLeft.setPower(-0.7);
+                                frontRight.setPower(-0.85);
+                                frontLeft.setPower(0.85);
+                                backRight.setPower(0.85);
+                                backLeft.setPower(-0.85);
                             } else if (gamepad1.left_bumper) {
-                                frontRight.setPower(0.7);
-                                frontLeft.setPower(-0.7);
-                                backRight.setPower(-0.7);
-                                backLeft.setPower(0.7);
+                                frontRight.setPower(0.85);
+                                frontLeft.setPower(-0.85);
+                                backRight.setPower(-0.85);
+                                backLeft.setPower(0.85);
                             }
                         }
                     }
